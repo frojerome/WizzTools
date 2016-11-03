@@ -1,5 +1,9 @@
-; ---- Déclaration et Includes ----
+#RequireAdmin
 #NoTrayIcon
+#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+#AutoIt3Wrapper_Icon=Mattahan-Umicons-Letter-W.ico
+#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+; ---- Déclaration et Includes ----
 #include <Misc.au3>
 #include <ButtonConstants.au3>
 #include <EditConstants.au3>
@@ -66,7 +70,7 @@ GUiCtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetData(-1, "")
 GUICtrlSetFont(-1, 7)
 $Button21 = GUICtrlCreateButton("Clear", 248, 48, 75, 25)
-$Button22 = GUICtrlCreateButton("Save", 244, 208, 75, 25)
+$Button22 = GUICtrlCreateButton("Save", 248, 208, 75, 25)
 
 
 GUICtrlCreateTabItem("")
@@ -207,27 +211,35 @@ Func Start()
 switch @HotKeyPressed
   Case "{F1}"
 	WinActivate($Handle1)
+	Sleep(100)
 	_Journal3("F1 Pressé")
   Case "{F2}"
 	WinActivate($Handle2)
+	Sleep(100)
 	_Journal3("F2 Pressé")
   Case "{F3}"
 	WinActivate($Handle3)
+	Sleep(100)
 	_Journal3("F3 Pressé")
   Case "{F4}"
 	WinActivate($Handle4)
+	Sleep(100)
 	_Journal3("F4 Pressé")
   Case "{F5}"
 	WinActivate($Handle5)
+	Sleep(100)
 	_Journal3("F5 Pressé")
   Case "{F6}"
 	WinActivate($Handle6)
+	Sleep(100)
 	_Journal3("F6 Pressé")
   Case "{F7}"
 	WinActivate($Handle7)
+	Sleep(100)
 	_Journal3("F7 Pressé")
   Case "{F8}"
 	WinActivate($Handle8)
+	Sleep(100)
 	_Journal3("F8 Pressé")
 EndSwitch
 EndFunc
