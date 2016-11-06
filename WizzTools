@@ -1,4 +1,4 @@
-#RequireAdmin
+;~ #RequireAdmin
 #NoTrayIcon
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=Mattahan-Umicons-Letter-W.ico
@@ -63,8 +63,33 @@ GUiCtrlSetState(-1, $GUI_DISABLE)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $Button9 = GUICtrlCreateButton("Help", 208, 216, 107, 25)
 
-; ---- Tab 3 (Autres) ----
-$TabSheet3 = GUICtrlCreateTabItem("Autres")
+; ---- Tab3 (Follow) ----
+$TabSheet3 = GUICtrlCreateTabItem("Follow")
+$Group3 = GUICtrlCreateGroup("Définir les comptes :", 16, 40, 201, 97)
+$Button23 = GUICtrlCreateButton("Chef", 24, 64, 59, 17)
+$Button24 = GUICtrlCreateButton("Follow 1", 24, 88, 59, 17)
+$Button25 = GUICtrlCreateButton("Follow 2", 24, 112, 59, 17)
+$Button26 = GUICtrlCreateButton("Follow 3", 88, 64, 59, 17)
+$Button27 = GUICtrlCreateButton("Follow 4", 88, 88, 59, 17)
+$Button28 = GUICtrlCreateButton("Follow 5", 88, 112, 59, 17)
+$Button29 = GUICtrlCreateButton("Follow 6", 152, 64, 59, 17)
+$Button30 = GUICtrlCreateButton("Follow 7", 152, 88, 59, 17)
+$Button31 = GUICtrlCreateButton("HELP", 152, 112, 59, 17)
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+$Group4 = GUICtrlCreateGroup("Touche à paramétrer :", 16, 168, 145, 65)
+$Button32 = GUICtrlCreateButton("[Rejoindre]", 24, 192, 59, 25)
+$Button33 = GUICtrlCreateButton("[Accepter]", 88, 192, 59, 25)
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+$Group5 = GUICtrlCreateGroup("Outils :", 176, 152, 89, 89)
+$Button34 = GUICtrlCreateButton("Tailles", 184, 176, 75, 25)
+$Button35 = GUICtrlCreateButton("Cacher", 184, 208, 75, 25)
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+$Edit4 = GUICtrlCreateEdit("", 240, 48, 81, 89)
+GUICtrlSetData(-1, "Edit4")
+
+
+; ---- Tab 4 (Autres) ----
+$TabSheet4 = GUICtrlCreateTabItem("Console")
 $Edit3 = GUICtrlCreateEdit("", 24, 40, 209, 201, BitOR($ES_AUTOVSCROLL, $ES_MULTILINE, $ES_WANTRETURN, $ES_READONLY))
 GUiCtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetData(-1, "")
@@ -79,13 +104,16 @@ GUISetState(@SW_SHOW)
 
 ; ---- Variables ----
 Global $Handle1, $Handle2, $Handle3, $Handle4, $Handle5, $Handle6, $Handle7, $Handle8
+Global $HandleC, $HandleF1, $HandleF2, $HandleF3, $HandleF4, $HandleF5, $HandleF6, $HandleF7
 Global $para1, $para2, $para3, $para4
 Global $Hide = 0
-Global $lock = 0
+Global $lock = 0, $FollowOn = 0
 Global $data[3]
 Global $Path = GUICtrlRead($Input1)
+Global $Sws = 0
 
 ; ---- PreConfig ----
+Opt("MouseCoordMode", 2)
 HotKeySet("{F9}", "HideH")
 GUICtrlSetData($Edit1, "Console du Switcher :" & @CRLF, 1)
 GUICtrlSetData($Edit2, "Console des Raccourcis :" & @CRLF, 1)
@@ -158,6 +186,26 @@ While 1
 		Case $Button9
 			Help()
 
+		Case $Button23
+			HotKeySet("{HOME}", "OnFollow")
+			SwitchIf("0", "$HandleC")
+		Case $Button24
+			SwitchIf("1", "$HandleF1")
+		Case $Button25
+			SwitchIf("2", "$HandleF2")
+		Case $Button26
+			SwitchIf("3", "$HandleF3")
+		Case $Button27
+			SwitchIf("4", "$HandleF4")
+		Case $Button28
+			SwitchIf("5", "$HandleF5")
+		Case $Button29
+			SwitchIf("6", "$HandleF6")
+		Case $Button30
+			SwitchIf("7", "$HandleF7")
+		Case $Button31
+			MsgBox(0, "Debug", $HandleF1 & ";" & $HandleF2 & ";" & $HandleF3)
+
 		Case $Button21
 			Guictrlsetdata($Edit3,"")
 		Case $Button22
@@ -165,9 +213,15 @@ While 1
 			_Journal3('Console enregistré dans "Log.txt"')
 
 	EndSwitch
+
 	If $lock = 1 Then
 		ModeLock()
 	EndIf
+
+	If $FollowOn = 1 Then
+		Afollow()
+	EndIf
+Sleep(50)
 WEnd
 
 
@@ -381,6 +435,94 @@ Func Help()
 EndFunc
 
 ; ---- Fonctions Tab3 ----
+Func SwitchIf($Swi, $SwitchNbrA)
+	If $Sws = $Swi Then
+		SwitchAdd( $SwitchNbrA)
+	Else
+		MsgBox(0, "Erreur", "Veuillez choisir le compte Chef et les Followers dans l'ordre !")
+	EndIf
+EndFunc
+
+Func SwitchAdd($SwitchNbr)
+	ToolTip("Cliquez sur votre fênetre pour la mettre au premier plan, puis, appuyez sur C", 0, 0)
+	While 1
+		If _IsPressed("43") Then
+			$GetHandle2 = WinGetHandle("")
+				If $SwitchNbr = "$HandleC" Then
+					$HandleC = $GetHandle2
+					WinSetTitle("","", "Chef")
+				ElseIf $SwitchNbr = "$HandleF1" Then
+					$HandleF1 = $GetHandle2
+					WinSetTitle("","", "Follow 1")
+				ElseIf $SwitchNbr = "$HandleF2" Then
+					$HandleF2 = $GetHandle2
+					WinSetTitle("","", "Follow 2")
+				ElseIf $SwitchNbr = "$HandleF3" Then
+					$HandleF3 = $GetHandle2
+					WinSetTitle("","", "Follow 3")
+				ElseIf $SwitchNbr = "$HandleF4" Then
+					$HandleF4 = $GetHandle2
+					WinSetTitle("","", "Follow 4")
+				ElseIf $SwitchNbr = "$HandleF5" Then
+					$HandleF5 = $GetHandle2
+					WinSetTitle("","", "Follow 5")
+				ElseIf $SwitchNbr = "$HandleF6" Then
+					$HandleF6 = $GetHandle2
+					WinSetTitle("","", "Follow 6")
+				ElseIf $SwitchNbr = "$HandleF7" Then
+					$HandleF7 = $GetHandle2
+					WinSetTitle("","", "Follow 7")
+				EndIf
+			$Sws = $Sws + 1
+			ToolTip("")
+			Return
+		EndIf
+	Sleep(50)
+	WEnd
+EndFunc
+
+Func OnFollow()
+	If $FollowOn = 0 Then
+		$FollowOn = 1
+		ToolTip("Mode Follow", 0,0)
+		_Journal3("Mode Follow : ON")
+	Else
+		$FollowOn = 0
+		ToolTip("")
+		_Journal3("Mode Follow : OFF")
+	EndIf
+EndFunc
+
+Func Afollow()
+	If WinActive($HandleC) Then
+		If _IsPressed("01") Then
+			$FollowPos = MouseGetPos()
+				If $Sws > 1 Then
+			 		ControlClick("Follow 1", "", "","left",1, $FollowPos[0], $FollowPos[1])
+				EndIf
+					If $Sws > 2 Then
+						ControlClick("Follow 2", "", "","left",1, $FollowPos[0], $FollowPos[1])
+					EndIf
+						If $Sws > 3 Then
+							ControlClick("Follow 3", "", "","left",1, $FollowPos[0], $FollowPos[1])
+						EndIf
+							If $Sws > 4 Then
+								ControlClick("Follow 4", "", "","left",1, $FollowPos[0], $FollowPos[1])
+							EndIf
+								If $Sws > 5 Then
+									ControlClick("Follow 5", "", "","left",1, $FollowPos[0], $FollowPos[1])
+								EndIf
+									If $Sws > 6 Then
+										ControlClick("Follow 6", "", "","left",1, $FollowPos[0], $FollowPos[1])
+									EndIf
+										If $Sws > 7 Then
+											ControlClick("Follow 7", "", "","left",1, $FollowPos[0], $FollowPos[1])
+										EndIf
+		EndIf
+	EndIf
+EndFunc
+
+; ---- Fonctions Tab4 ----
 Func _Journal3($Msg)
 	GUICtrlSetData($Edit3, "[" & _NowTime() & "] " & $Msg & @CRLF, 1)
 EndFunc
