@@ -63,29 +63,29 @@ GUiCtrlSetState(-1, $GUI_DISABLE)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $Button9 = GUICtrlCreateButton("Help", 208, 216, 107, 25)
 
-; ---- Tab3 (Follow) ----
-$TabSheet3 = GUICtrlCreateTabItem("Follow")
-$Group3 = GUICtrlCreateGroup("Définir les comptes :", 16, 40, 201, 97)
-$Button23 = GUICtrlCreateButton("Chef", 24, 64, 59, 17)
-$Button24 = GUICtrlCreateButton("Follow 1", 24, 88, 59, 17)
-$Button25 = GUICtrlCreateButton("Follow 2", 24, 112, 59, 17)
-$Button26 = GUICtrlCreateButton("Follow 3", 88, 64, 59, 17)
-$Button27 = GUICtrlCreateButton("Follow 4", 88, 88, 59, 17)
-$Button28 = GUICtrlCreateButton("Follow 5", 88, 112, 59, 17)
-$Button29 = GUICtrlCreateButton("Follow 6", 152, 64, 59, 17)
-$Button30 = GUICtrlCreateButton("Follow 7", 152, 88, 59, 17)
-$Button31 = GUICtrlCreateButton("HELP", 152, 112, 59, 17)
-GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group4 = GUICtrlCreateGroup("Touche à paramétrer :", 16, 168, 145, 65)
-$Button32 = GUICtrlCreateButton("[Rejoindre]", 24, 192, 59, 25)
-$Button33 = GUICtrlCreateButton("[Accepter]", 88, 192, 59, 25)
-GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group5 = GUICtrlCreateGroup("Outils :", 176, 152, 89, 89)
-$Button34 = GUICtrlCreateButton("Tailles", 184, 176, 75, 25)
-$Button35 = GUICtrlCreateButton("Cacher", 184, 208, 75, 25)
-GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Edit4 = GUICtrlCreateEdit("", 240, 48, 81, 89)
-GUICtrlSetData(-1, "Edit4")
+; ---- Tab3 (Follow) ---- EN PAUSE
+;~ $TabSheet3 = GUICtrlCreateTabItem("Follow")
+;~ $Group3 = GUICtrlCreateGroup("Définir les comptes :", 16, 40, 201, 97)
+;~ $Button23 = GUICtrlCreateButton("Chef", 24, 64, 59, 17)
+;~ $Button24 = GUICtrlCreateButton("Follow 1", 24, 88, 59, 17)
+;~ $Button25 = GUICtrlCreateButton("Follow 2", 24, 112, 59, 17)
+;~ $Button26 = GUICtrlCreateButton("Follow 3", 88, 64, 59, 17)
+;~ $Button27 = GUICtrlCreateButton("Follow 4", 88, 88, 59, 17)
+;~ $Button28 = GUICtrlCreateButton("Follow 5", 88, 112, 59, 17)
+;~ $Button29 = GUICtrlCreateButton("Follow 6", 152, 64, 59, 17)
+;~ $Button30 = GUICtrlCreateButton("Follow 7", 152, 88, 59, 17)
+;~ $Button31 = GUICtrlCreateButton("HELP", 152, 112, 59, 17)
+;~ GUICtrlCreateGroup("", -99, -99, 1, 1)
+;~ $Group4 = GUICtrlCreateGroup("Touche à paramétrer :", 16, 168, 145, 65)
+;~ $Button32 = GUICtrlCreateButton("[Rejoindre]", 24, 192, 59, 25)
+;~ $Button33 = GUICtrlCreateButton("[Accepter]", 88, 192, 59, 25)
+;~ GUICtrlCreateGroup("", -99, -99, 1, 1)
+;~ $Group5 = GUICtrlCreateGroup("Outils :", 176, 152, 89, 89)
+;~ $Button34 = GUICtrlCreateButton("Tailles", 184, 176, 75, 25)
+;~ $Button35 = GUICtrlCreateButton("Cacher", 184, 208, 75, 25)
+;~ GUICtrlCreateGroup("", -99, -99, 1, 1)
+;~ $Edit4 = GUICtrlCreateEdit("", 240, 48, 81, 89)
+;~ GUICtrlSetData(-1, "Edit4")
 
 
 ; ---- Tab 4 (Autres) ----
@@ -186,25 +186,27 @@ While 1
 		Case $Button9
 			Help()
 
-		Case $Button23
-			HotKeySet("{HOME}", "OnFollow")
-			SwitchIf("0", "$HandleC")
-		Case $Button24
-			SwitchIf("1", "$HandleF1")
-		Case $Button25
-			SwitchIf("2", "$HandleF2")
-		Case $Button26
-			SwitchIf("3", "$HandleF3")
-		Case $Button27
-			SwitchIf("4", "$HandleF4")
-		Case $Button28
-			SwitchIf("5", "$HandleF5")
-		Case $Button29
-			SwitchIf("6", "$HandleF6")
-		Case $Button30
-			SwitchIf("7", "$HandleF7")
-		Case $Button31
-			MsgBox(0, "Debug", $HandleF1 & ";" & $HandleF2 & ";" & $HandleF3)
+;~ 		Case $Button23
+;~ 			HotKeySet("{HOME}", "OnFollow")
+;~ 			SwitchIf("0", "$HandleC")
+;~ 		Case $Button24
+;~ 			SwitchIf("1", "$HandleF1")
+;~ 		Case $Button25
+;~ 			SwitchIf("2", "$HandleF2")
+;~ 		Case $Button26
+;~ 			SwitchIf("3", "$HandleF3")
+;~ 		Case $Button27
+;~ 			SwitchIf("4", "$HandleF4")
+;~ 		Case $Button28
+;~ 			SwitchIf("5", "$HandleF5")
+;~ 		Case $Button29
+;~ 			SwitchIf("6", "$HandleF6")
+;~ 		Case $Button30
+;~ 			SwitchIf("7", "$HandleF7")
+;~ 		Case $Button31
+;~ 			MsgBox(0, "Debug", $HandleF1 & ";" & $HandleF2 & ";" & $HandleF3)
+;~ 		Case $Button34
+;~ 			Resize()
 
 		Case $Button21
 			Guictrlsetdata($Edit3,"")
@@ -522,6 +524,13 @@ Func Afollow()
 	EndIf
 EndFunc
 
+Func Resize()
+	$Size = WinGetPos("Chef")
+	MsgBox(0,"", $Size[2] & ";" & $Size[3])
+	If WinExists("Follow 1") Then
+		WinMove("Follow 1", "","","",$Size[2], $Size[3])
+	EndIf
+EndFunc
 ; ---- Fonctions Tab4 ----
 Func _Journal3($Msg)
 	GUICtrlSetData($Edit3, "[" & _NowTime() & "] " & $Msg & @CRLF, 1)
